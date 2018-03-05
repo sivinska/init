@@ -1,0 +1,5 @@
+#! /bin/bash
+#For a weekly updates you need to modify crontab -e and set it to:
+#0 4 * * 1 /path/to/the/folder/file.sh
+
+sudo sh -c 'apt-get -qy update >> /var/log/update_script.log; apt-get -qy upgrade >> /var/log/update_script.log'

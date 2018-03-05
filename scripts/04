@@ -1,0 +1,17 @@
+#! /bin/bash
+#To schedule the task to run it everyday at midnight you need to modify crontab -e file and set it to:
+#0 0 * * * /path/to/folder/file.sh
+
+cronfile=$(md5sum /etc/crontab | awk '{ print $1 }')
+modified="/etc/crontab.log"
+if [ -f "$modified" ]
+	then
+		modified=$(cat /etc/crontab.log | awk '{ print $1 }')
+	else
+		modified="$cronfile"
+	fi		
+if [ "$cronfile" != "$modified" ]
+	then 
+		echo "The changes have been made" | mail -s "/etc/crontab modifier" root
+	fi
+md5sum /etc/crontab | awk '{ print $1 }' > /etc/crontab.log
